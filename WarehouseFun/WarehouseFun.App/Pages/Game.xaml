@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="WarehouseFun.App.Pages.Game"
+    xmlns:base="clr-namespace:WarehouseFun.App.Base"
+    NavigationPage.HasNavigationBar="False"
+    x:Name="contentPage">
+    <Grid RowDefinitions="auto, auto, *, auto" BindingContext="{Binding Source={x:Reference contentPage}}">
+        <Border
+            StrokeThickness="0"
+            BackgroundColor="{StaticResource Gray100}"
+            Padding="8">
+            <Grid ColumnDefinitions="auto, *, *">
+                <Label
+                    FontSize="30"
+                    Text="{x:Static base:IconFont.ArrowsRotate}"
+                    FontFamily="FontAwesomeSolid"
+                    TextColor="{StaticResource Gray600}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Refresh_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label
+                    Grid.Column="1"
+                    Margin="4,0"
+                    VerticalOptions="Center">
+                    Reset score
+                </Label>
+
+                <Label
+                    HorizontalOptions="End"
+                    Grid.Column="2"
+                    FontSize="30"
+                    Text="{x:Static base:IconFont.ArrowRightFromBracket}"
+                    FontFamily="FontAwesomeSolid"
+                    TextColor="{StaticResource Gray600}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Exit_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+        </Border>
+
+        <VerticalStackLayout Grid.Row="1">
+            <Label
+                FontSize="Title"
+                Text="{Binding CurrentActor.Name}"
+                HorizontalTextAlignment="Center"
+                TextColor="{StaticResource Gray600}" />
+            <Label
+                FontSize="Title"
+                Text="{Binding CurrentActor.Score, StringFormat='Score {0}'}"
+                HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+
+        <Border
+            Margin="10"
+            Grid.Row="2"
+            StrokeThickness="6"
+            Stroke="{StaticResource Gray100}">
+            <Border.Triggers>
+                <DataTrigger
+                    TargetType="Border"
+                    Binding="{Binding CurrentActor.State}"
+                    Value="Down">
+                    <Setter Property="Stroke" Value="{StaticResource Error}" />
+                </DataTrigger>
+                <DataTrigger
+                    TargetType="Border"
+                    Binding="{Binding CurrentActor.IsScoreUp}"
+                    Value="true">
+                    <Setter Property="Stroke" Value="{StaticResource Sucess}" />
+                </DataTrigger>
+            </Border.Triggers>
+            <VerticalStackLayout VerticalOptions="Center">
+                <Button Text="Test" Clicked="Button_Clicked" />
+                <Label
+                    HorizontalTextAlignment="Center"
+                    TextDecorations="Underline"
+                    FontSize="100"
+                    Text="Fight.">
+                    <Label.Triggers>
+                        <DataTrigger
+                            TargetType="Label"
+                            Binding="{Binding CurrentActor.IsScoreUp}"
+                            Value="true">
+                            <Setter Property="TextColor" Value="{StaticResource Sucess}" />
+                            <Setter Property="Text" Value="Scored!" />
+                        </DataTrigger>
+                        <DataTrigger
+                            TargetType="Label"
+                            Binding="{Binding CurrentActor.State}"
+                            Value="Down">
+                            <Setter Property="TextColor" Value="{StaticResource Error}" />
+                            <Setter Property="Text" Value="Dead." />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Label
+                    FontSize="60"
+                    Text="{x:Static base:IconFont.Gun}"
+                    FontFamily="FontAwesomeSolid"
+                    HorizontalTextAlignment="Center">
+                    <Label.Triggers>
+                        <DataTrigger
+                            TargetType="Label"
+                            Binding="{Binding CurrentActor.IsScoreUp}"
+                            Value="true">
+                            <Setter Property="TextColor" Value="{StaticResource Sucess}" />
+                            <Setter Property="Text" Value="{x:Static base:IconFont.Check}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            TargetType="Label"
+                            Binding="{Binding CurrentActor.State}"
+                            Value="Down">
+                            <Setter Property="TextColor" Value="{StaticResource Error}" />
+                            <Setter Property="Text" Value="{x:Static base:IconFont.Skull}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </VerticalStackLayout>
+        </Border>
+
+        <CollectionView
+            Grid.Row="3"
+            ItemsSource="{Binding Actors}"
+            HorizontalOptions="Center">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout Margin="8,0">
+                        <Label
+                            HorizontalOptions="Center"
+                            FontSize="40"
+                            Text="{x:Static base:IconFont.User}"
+                            FontFamily="FontAwesomeSolid"
+                            TextColor="{StaticResource Gray100}">
+                            <Label.Triggers>
+                                <DataTrigger
+                                    TargetType="Label"
+                                    Binding="{Binding IsScoreUp}"
+                                    Value="true">
+                                    <Setter Property="TextColor" Value="{StaticResource Sucess}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    TargetType="Label"
+                                    Binding="{Binding State}"
+                                    Value="Down">
+                                    <Setter Property="TextColor" Value="{StaticResource Error}" />
+                                    <Setter Property="Text" Value="{x:Static base:IconFont.UserInjured}" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Label
+                            Margin="0,8,0,0"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding Name}"
+                            TextColor="{StaticResource Gray600}" />
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding Score, StringFormat='Score {0}'}"
+                            TextColor="{StaticResource Gray600}" />
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
