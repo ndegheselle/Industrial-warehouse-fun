@@ -15,7 +15,7 @@
             StrokeThickness="6"
             Stroke="{StaticResource Gray100}">
             <VerticalStackLayout VerticalOptions="Center">
-                <Button Text="Test" Clicked="Button_Clicked" />
+                <Button Clicked="Button_Clicked" Text="Test"></Button>
                 <Label
                     HorizontalTextAlignment="Center"
                     TextColor="{StaticResource Gray400}"

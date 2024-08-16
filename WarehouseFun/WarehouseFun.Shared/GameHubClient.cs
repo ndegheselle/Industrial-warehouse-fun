@@ -13,7 +13,7 @@ namespace WarehouseFun.Shared
         public GameHubClient(string SignalRUrl)
         {
             _connection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:53353/ChatHub")
+                .WithUrl(SignalRUrl)
                 .WithAutomaticReconnect()
                 .Build();
 

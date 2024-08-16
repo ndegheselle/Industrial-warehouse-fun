@@ -1,7 +1,5 @@
-﻿using Android.Media.TV;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using WarehouseFun.App.Base;
-using WarehouseFun.App.Services;
 using WarehouseFun.Shared;
 
 namespace WarehouseFun.App
@@ -21,8 +19,10 @@ namespace WarehouseFun.App
                     fonts.AddFont("BebasNeue-Regular.ttf", "BebasNeue");
                 });
 
-            builder.Services.AddSingleton<GameHubClient>((provider) => new GameHubClient("https://localhost:7270/game"));
-            builder.Services.AddSingleton<IHardwareHandling>(sp => new HardwareHandling());
+            builder.Services.AddSingleton<GameHubClient>((provider) => new GameHubClient("https://recette-pickles.3magroup.com/game"));
+            builder.Services.AddSingleton<IHardwareHandling>((provider) => HardwareHandling.Instance);
+
+            builder.Services.AddTransient<IAlerts>((provider) => (IAlerts)Application.Current!);
 
 #if DEBUG
             builder.Logging.AddDebug();
