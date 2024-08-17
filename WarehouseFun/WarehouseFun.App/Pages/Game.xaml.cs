@@ -48,4 +48,9 @@ public partial class Game : ContentPage
     {
         await Navigation.PushAsync(new MainPage());
     }
+
+    private async void Button_Clicked(object sender, EventArgs e)
+    {
+        await _client.ShootActorAsync(CurrentActor.Id);
+    }
 }

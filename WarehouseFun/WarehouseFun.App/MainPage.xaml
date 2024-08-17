@@ -12,6 +12,7 @@
         </VerticalStackLayout>
         <Border
             Grid.Row="1"
+            StrokeShape="RoundRectangle 6"
             StrokeThickness="6"
             Stroke="{StaticResource Gray100}">
             <VerticalStackLayout VerticalOptions="Center">
