@@ -19,7 +19,7 @@ namespace WarehouseFun.App
                     fonts.AddFont("BebasNeue-Regular.ttf", "BebasNeue");
                 });
 
-            builder.Services.AddSingleton<GameHubClient>((provider) => new GameHubClient("http://recette-wms.3magroup.com/game/"));
+            builder.Services.AddSingleton<GameHubClient>((provider) => new GameHubClient("http://192.168.1.45:5259/game"));
             builder.Services.AddSingleton<IHardwareHandling>((provider) => HardwareHandling.Instance);
 
             builder.Services.AddTransient<IAlerts>((provider) => (IAlerts)Application.Current!);

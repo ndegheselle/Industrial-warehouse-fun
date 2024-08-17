@@ -7,6 +7,16 @@ namespace WarehouseFun.Api.Hubs
     public class GameHub : Hub
     {
         private static ConcurrentDictionary<string, Actor> Actors = new ConcurrentDictionary<string, Actor>();
+
+        public override Task OnDisconnectedAsync(Exception? exception)
+        {
+            if (Actors.TryRemove(Context.ConnectionId, out var actor))
+            {
+                Clients.All.SendAsync("ActorDisconnected", actor.Id);
+            }
+            return base.OnDisconnectedAsync(exception);
+        }
+
         public void Register(string username, Guid id)
         {
             var actor = new Actor()
@@ -18,15 +28,6 @@ namespace WarehouseFun.Api.Hubs
             Actors.TryAdd(Context.ConnectionId, actor);
 
             Clients.All.SendAsync("ActorRegistered", actor);
-        }
-
-        public override Task OnDisconnectedAsync(Exception? exception)
-        {
-            if (Actors.TryRemove(Context.ConnectionId, out var actor))
-            {
-                Clients.All.SendAsync("ActorDisconnected", actor.Id);
-            }
-            return base.OnDisconnectedAsync(exception);
         }
 
         public IEnumerable<Actor> GetActors()
