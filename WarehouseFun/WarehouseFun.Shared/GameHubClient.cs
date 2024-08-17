@@ -13,7 +13,7 @@ namespace WarehouseFun.Shared
         public GameHubClient(string SignalRUrl)
         {
             _connection = new HubConnectionBuilder()
-                .WithUrl(new Uri(SignalRUrl))
+                .WithUrl(SignalRUrl)
                 .WithAutomaticReconnect()
                 .Build();
 

@@ -57,6 +57,7 @@
         <Border
             Margin="10"
             Grid.Row="2"
+            StrokeShape="RoundRectangle 6"
             StrokeThickness="6"
             Stroke="{StaticResource Gray100}">
             <Border.Triggers>
@@ -74,6 +75,7 @@
                 </DataTrigger>
             </Border.Triggers>
             <VerticalStackLayout VerticalOptions="Center">
+                <Button Text="Test" Clicked="Button_Clicked"></Button>
                 <Label
                     HorizontalTextAlignment="Center"
                     TextDecorations="Underline"
