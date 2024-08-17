@@ -11,8 +11,6 @@
     <Color x:Key="SecondaryDarkText">#9880e5</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
 
-    <Color x:Key="Error">#ff6685</Color>
-    <Color x:Key="Sucess">#48c78e</Color>
 
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
@@ -20,14 +18,42 @@
     <Color x:Key="MidnightBlue">#190649</Color>
     <Color x:Key="OffBlack">#1f1f1f</Color>
 
-    <Color x:Key="Gray100">#E1E1E1</Color>
-    <Color x:Key="Gray200">#C8C8C8</Color>
-    <Color x:Key="Gray300">#ACACAC</Color>
-    <Color x:Key="Gray400">#919191</Color>
-    <Color x:Key="Gray500">#6E6E6E</Color>
-    <Color x:Key="Gray600">#404040</Color>
-    <Color x:Key="Gray900">#212121</Color>
-    <Color x:Key="Gray950">#141414</Color>
+    <!--  https://uicolors.app/create  -->
+    <Color x:Key="Sucess50">#edfcf4</Color>
+    <Color x:Key="Sucess100">#d5f6e2</Color>
+    <Color x:Key="Sucess200">#aeecca</Color>
+    <Color x:Key="Sucess300">#79dcad</Color>
+    <Color x:Key="Sucess400">#48c78e</Color>
+    <Color x:Key="Sucess500">#1faa70</Color>
+    <Color x:Key="Sucess600">#12895a</Color>
+    <Color x:Key="Sucess700">#0e6e4b</Color>
+    <Color x:Key="Sucess800">#0e573d</Color>
+    <Color x:Key="Sucess900">#0c4833</Color>
+    <Color x:Key="Sucess950">#06281d</Color>
+
+    <Color x:Key="Error50">#fff1f3</Color>
+    <Color x:Key="Error100">#ffe3e7</Color>
+    <Color x:Key="Error200">#ffccd5</Color>
+    <Color x:Key="Error300">#ffa1b2</Color>
+    <Color x:Key="Error400">#ff6685</Color>
+    <Color x:Key="Error500">#f93a66</Color>
+    <Color x:Key="Error600">#e71751</Color>
+    <Color x:Key="Error700">#c30d43</Color>
+    <Color x:Key="Error800">#a30e40</Color>
+    <Color x:Key="Error900">#8b103d</Color>
+    <Color x:Key="Error950">#4e031c</Color>
+
+    <Color x:Key="Gray50">#f6f7f9</Color>
+    <Color x:Key="Gray100">#eceef2</Color>
+    <Color x:Key="Gray200">#d5d9e2</Color>
+    <Color x:Key="Gray300">#b1bbc8</Color>
+    <Color x:Key="Gray400">#8695aa</Color>
+    <Color x:Key="Gray500">#64748b</Color>
+    <Color x:Key="Gray600">#526077</Color>
+    <Color x:Key="Gray700">#434e61</Color>
+    <Color x:Key="Gray800">#3a4252</Color>
+    <Color x:Key="Gray900">#343a46</Color>
+    <Color x:Key="Gray950">#23272e</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}" />

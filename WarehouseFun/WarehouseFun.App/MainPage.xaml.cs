@@ -16,6 +16,21 @@ namespace WarehouseFun.App
 
             InitializeComponent();
             _hardware.DataScanned += Hardware_DataScanned;
+            _client.Connected += _client_Connected;
+        }
+
+        protected override void OnDisappearing()
+        {
+            _hardware.DataScanned -= Hardware_DataScanned;
+            _client.Connected -= _client_Connected;
+        }
+
+        private void _client_Connected()
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                Navigation.PushAsync(new Game());
+            });
         }
 
         protected override async void OnAppearing()
@@ -28,12 +43,10 @@ namespace WarehouseFun.App
             if (Guid.TryParse(data, out var id))
             {
                 await _client.RegisterAsync(UsernameEntry.Text, id);
-                _client.CurrentActorId = id;
-                await Navigation.PushAsync(new Game());
             }
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        private void Button_Clicked(object sender, EventArgs e)
         {
             HardwareHandling.Instance.OnDataScanned(Guid.NewGuid().ToString());
         }

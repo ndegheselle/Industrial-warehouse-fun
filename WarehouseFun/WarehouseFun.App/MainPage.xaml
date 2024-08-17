@@ -11,12 +11,14 @@
             <Entry x:Name="UsernameEntry" FontSize="Title" />
         </VerticalStackLayout>
         <Border
+            Margin="0,10"
             Grid.Row="1"
             StrokeShape="RoundRectangle 6"
             StrokeThickness="6"
-            Stroke="{StaticResource Gray100}">
+            Stroke="{AppThemeBinding Dark={StaticResource Gray900},
+                                     Light={StaticResource Gray100}}">
             <VerticalStackLayout VerticalOptions="Center">
-                <Button Clicked="Button_Clicked" Text="Test"></Button>
+                <Button Clicked="Button_Clicked" Text="Test" />
                 <Label
                     HorizontalTextAlignment="Center"
                     TextColor="{StaticResource Gray400}"

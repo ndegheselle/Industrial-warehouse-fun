@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using System.ComponentModel;
 
 namespace WarehouseFun.Shared
 {
     public class GameHubClient
     {
+        public event Action? Connected;
+
         private HubConnection _connection;
 
         public List<Actor> Actors { get; private set; } = new List<Actor>();
-        public Actor? CurrentActor => Actors.FirstOrDefault(x => x.Id == CurrentActorId);
-        public Guid? CurrentActorId { get; set; }
+        public Actor? CurrentActor { get; set; }
 
         public GameHubClient(string SignalRUrl)
         {
@@ -17,9 +19,12 @@ namespace WarehouseFun.Shared
                 .WithAutomaticReconnect()
                 .Build();
 
-            _connection.On<Guid>("CurrentActorId", (id) =>
+            _connection.On<Actor>("Connected", (actor) =>
             {
-                CurrentActorId = id;
+                // XXX : Why the references are not the same there ???
+                CurrentActor = actor;
+                Actors.Add(CurrentActor);
+                Connected?.Invoke();
             });
 
             _connection.On<Actor>("ActorRegistered", (actor) =>
@@ -41,9 +46,14 @@ namespace WarehouseFun.Shared
                 Actor? actor = Actors.FirstOrDefault(a => a.Id == updatedActor.Id);
                 if (actor != null)
                 {
-                    actor.IsScoreUp = false;
                     actor.State = updatedActor.State;
                     actor.Score = updatedActor.Score;
+                }
+
+                if (CurrentActor?.Id == updatedActor.Id)
+                {
+                    CurrentActor.State = updatedActor.State;
+                    CurrentActor.Score = updatedActor.Score;
                 }
             });
         }
@@ -51,6 +61,13 @@ namespace WarehouseFun.Shared
         public async Task StartConnectionAsync()
         {
             await _connection.StartAsync();
+        }
+
+        public async Task DisconnectAsync()
+        {
+            await _connection.StopAsync();
+            Actors.Clear();
+            CurrentActor = null;
         }
 
         public async Task RegisterAsync(string username, Guid id)

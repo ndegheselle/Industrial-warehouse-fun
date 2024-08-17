@@ -7,6 +7,12 @@ namespace WarehouseFun.Api.Hubs
     public class GameHub : Hub
     {
         private static ConcurrentDictionary<string, Actor> Actors = new ConcurrentDictionary<string, Actor>();
+        private readonly IHubContext<GameHub> _hubContext;
+
+        public GameHub(IHubContext<GameHub> hubContext)
+        {
+            _hubContext = hubContext;
+        }
 
         public override Task OnDisconnectedAsync(Exception? exception)
         {
@@ -14,6 +20,7 @@ namespace WarehouseFun.Api.Hubs
             {
                 Clients.All.SendAsync("ActorDisconnected", actor.Id);
             }
+
             return base.OnDisconnectedAsync(exception);
         }
 
@@ -26,8 +33,8 @@ namespace WarehouseFun.Api.Hubs
                 State = EnumActorState.Active,
             };
             Actors.TryAdd(Context.ConnectionId, actor);
-
-            Clients.All.SendAsync("ActorRegistered", actor);
+            Clients.Caller.SendAsync("Connected", actor);
+            Clients.Others.SendAsync("ActorRegistered", actor);
         }
 
         public IEnumerable<Actor> GetActors()
@@ -59,14 +66,18 @@ namespace WarehouseFun.Api.Hubs
             // Update the state of the target
             actor.State = EnumActorState.Down;
             await Clients.All.SendAsync("ActorUpdated", actor);
+            Revive(actor);
+        }
 
+        private async void Revive(Actor actor)
+        {
             // Revive after a delay
             await Task.Delay(GameParameters.DeathDelayMs);
             actor.State = EnumActorState.Active;
-            await Clients.All.SendAsync("ActorUpdated", actor);
+            await _hubContext.Clients.All.SendAsync("ActorUpdated", actor);
         }
 
-        public async void ResetScore(Guid actorId)
+        public async void ResetScore()
         {
             // Update the caller score
             if (Actors.TryGetValue(Context.ConnectionId, out var callerActor))
