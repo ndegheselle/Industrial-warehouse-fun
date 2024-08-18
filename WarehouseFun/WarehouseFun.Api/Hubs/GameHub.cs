@@ -56,7 +56,8 @@ namespace WarehouseFun.Api.Hubs
                     return;
 
                 callerActor.Score++;
-                await Clients.Caller.SendAsync("ActorUpdated", callerActor);
+                await Clients.Caller.SendAsync("Scored", actor);
+                await Clients.All.SendAsync("ActorUpdated", callerActor);
             }
             else
             {

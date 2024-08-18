@@ -82,6 +82,9 @@
 	  <MauiXaml Update="Pages\Game.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\DefaultStyles\Label.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionWarehouseFunAppHideInfoBar="True" /></VisualStudio></ProjectExtensions>

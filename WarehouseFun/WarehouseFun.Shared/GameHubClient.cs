@@ -6,6 +6,7 @@ namespace WarehouseFun.Shared
     public class GameHubClient
     {
         public event Action? Connected;
+        public event Action<Actor>? Scored;
 
         private HubConnection _connection;
 
@@ -55,6 +56,11 @@ namespace WarehouseFun.Shared
                     CurrentActor.State = updatedActor.State;
                     CurrentActor.Score = updatedActor.Score;
                 }
+            });
+
+            _connection.On<Actor>("Scored", (actor) =>
+            {
+                Scored?.Invoke(actor);
             });
         }
 

@@ -44,17 +44,20 @@
             </Grid>
         </Border>
 
-        <VerticalStackLayout Grid.Row="1">
-            <Label
-                FontSize="Title"
-                Text="{Binding CurrentActor.Name}"
-                HorizontalTextAlignment="Center"
-                TextColor="{StaticResource Gray600}" />
-            <Label
-                FontSize="Title"
-                Text="{Binding CurrentActor.Score, StringFormat='Score {0}'}"
-                HorizontalTextAlignment="Center" />
-        </VerticalStackLayout>
+        <Grid Grid.Row="1">
+            <VerticalStackLayout>
+                <Label
+                    FontSize="Title"
+                    Text="{Binding CurrentActor.Name}"
+                    HorizontalTextAlignment="Center"
+                    TextColor="{StaticResource Gray600}" />
+                <Label
+                    FontSize="Title"
+                    Text="{Binding CurrentActor.Score, StringFormat='Score {0}'}"
+                    HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+            <components:ScoreUp x:Name="AnimatedScore" HorizontalOptions="Center" />
+        </Grid>
 
         <Border
             Margin="10"

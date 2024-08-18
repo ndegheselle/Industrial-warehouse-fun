@@ -23,6 +23,7 @@ public partial class Game : ContentPage
 
         _hardware.TriggerPressed += _hardware_TriggerPressed;
         _hardware.DataScanned += _hardware_DataScanned;
+        _client.Scored += _client_Scored;
 
         if (CurrentActor == null)
             throw new ArgumentNullException(nameof(CurrentActor));
@@ -36,6 +37,7 @@ public partial class Game : ContentPage
     {
         _hardware.TriggerPressed -= _hardware_TriggerPressed;
         _hardware.DataScanned -= _hardware_DataScanned;
+        _client.Scored -= _client_Scored;
     }
 
     private void CurrentActor_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -47,6 +49,14 @@ public partial class Game : ContentPage
                 AnimatedBackground.Start(GameParameters.DeathDelayMs);
             }
         }
+    }
+
+    private void _client_Scored(Actor obj)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            AnimatedScore.Animate();
+        });
     }
 
     private async void _hardware_DataScanned(string obj)
@@ -73,8 +83,8 @@ public partial class Game : ContentPage
         await Navigation.PushAsync(new MainPage());
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
+    private void Button_Clicked(object sender, EventArgs e)
     {
-        await _client.ShootActorAsync(CurrentActor!.Id);
+        HardwareHandling.Instance.OnDataScanned(CurrentActor!.Id.ToString());
     }
 }
