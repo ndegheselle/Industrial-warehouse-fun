@@ -18,11 +18,6 @@ namespace WarehouseFun.App
         private static string _INTENT_ACTION = "pickles.RECVR";
         private static string _INTENT_CATEGORY = "android.intent.category.DEFAULT";
 
-        private static string _EXTRA_PARAM = "com.symbol.datawedge.api.SCANNER_INPUT_PLUGIN";
-        private static string _ACTION_SCANNERINPUTPLUGIN = "com.symbol.datawedge.api.ACTION";
-        private static string _DWAPI_STOP_PLUGIN = "DISABLE_PLUGIN";
-        private static string _DWAPI_START_PLUGIN = "ENABLE_PLUGIN";
-
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

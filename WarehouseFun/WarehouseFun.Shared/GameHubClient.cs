@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace WarehouseFun.Shared
@@ -10,7 +11,7 @@ namespace WarehouseFun.Shared
 
         private HubConnection _connection;
 
-        public List<Actor> Actors { get; private set; } = new List<Actor>();
+        public ObservableCollection<Actor> Actors { get; private set; } = new ObservableCollection<Actor>();
         public Actor? CurrentActor { get; set; }
 
         public GameHubClient(string SignalRUrl)
@@ -79,7 +80,11 @@ namespace WarehouseFun.Shared
         public async Task RegisterAsync(string username, Guid id)
         {
             await _connection.InvokeAsync("Register", username, id);
-            Actors = await GetActorsAsync();
+            var actors = await GetActorsAsync();
+
+            Actors.Clear();
+            foreach(var actor in actors)
+                Actors.Add(actor);
         }
 
         public async Task ResetScoreAsync()

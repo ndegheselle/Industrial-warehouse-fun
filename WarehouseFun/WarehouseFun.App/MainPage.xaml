@@ -18,7 +18,7 @@
             Stroke="{AppThemeBinding Dark={StaticResource Gray900},
                                      Light={StaticResource Gray100}}">
             <VerticalStackLayout VerticalOptions="Center">
-                <Button Clicked="Button_Clicked" Text="Test" />
+                <Button Clicked="Button_Clicked" Text="Test" IsVisible="False" />
                 <Label
                     HorizontalTextAlignment="Center"
                     TextColor="{StaticResource Gray400}"

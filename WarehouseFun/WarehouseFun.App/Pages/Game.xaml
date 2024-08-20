@@ -86,7 +86,7 @@
                     </components:AnimatedBackground.Triggers>
                 </components:AnimatedBackground>
                 <VerticalStackLayout VerticalOptions="Center">
-                    <Button Text="Test" Clicked="Button_Clicked" />
+                    <Button Text="Test" Clicked="Button_Clicked" IsVisible="False"/>
                     <Label
                         HorizontalTextAlignment="Center"
                         TextDecorations="Underline"

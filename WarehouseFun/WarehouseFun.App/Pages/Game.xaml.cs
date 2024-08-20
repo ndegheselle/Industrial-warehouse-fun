@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using WarehouseFun.App.Base;
 using WarehouseFun.App.Components;
 using WarehouseFun.Shared;
@@ -12,7 +13,7 @@ public partial class Game : ContentPage
 
     public bool HaveScored { get; set; } = false;
 
-    public List<Actor> Actors => _client.Actors;
+    public ObservableCollection<Actor> Actors => _client.Actors;
     public Actor? CurrentActor => _client.CurrentActor;
 
     public Game()
@@ -69,7 +70,10 @@ public partial class Game : ContentPage
 
     private void _hardware_TriggerPressed()
     {
-        _alerts.Sound("pewpew.mp3");
+        if (_client.CurrentActor?.State != EnumActorState.Down)
+        {
+            _alerts.Sound("pewpew.mp3");
+        }
     }
 
     private async void Refresh_Tapped(object sender, TappedEventArgs e)
