@@ -4,7 +4,10 @@
 
  Maui mobile application used on Zebra TC27 barcode scanner to shoot people and have fun while doing so :)
 
-![preview](./images/preview.gif)
+<p float="left">
+  <img src="/images/preview.PNG" width="100" />
+  <img src="/images/live.gif" width="100" /> 
+</p>
 
 ## Description
 
